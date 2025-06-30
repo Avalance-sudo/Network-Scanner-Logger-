@@ -4,8 +4,11 @@ Useing a Raspbarry pi5 as a headless command line tool to scan home network,log 
 
 # What You'll Learn
 -Linux terminal basics
+
 -Networking tools (nmap, arp, ip, netdiscover)
+
 -Cron jobs for automation
+
 -Logging + text manipulation
 
 # What You'll Need 
@@ -54,8 +57,7 @@ nmap -sn "$NETWORK" | grep "Nmap scan report for" >> "$LOG_FILE"
 echo "Done. Log saved to $LOG_FILE"
 
 Save: Ctrl + X, then Y, then Enter
-Make executable:
-chmod +x ~/net-monitor.sh
+Make executable:chmod +x ~/net-monitor.sh
 
 # Step 6: Test the Script 
 ./net-monitor.sh
