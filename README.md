@@ -17,33 +17,65 @@ Useing a Raspbarry pi5 as a headless command line tool to scan home network,log 
 - SSH enabled (or keyboard/HDMI to start)
 - Wifi or Ethernet
 
+Absolutely! Here's your **GitHub-ready version** of that section with all code properly wrapped in **Markdown backticks** (\`\`\`), so it will display perfectly in a `README.md`:
 
-  
-# Project Flow 
-Step 1: Flash Raspberry Pi OS Lite
+---
+
+````markdown
+# 📡 Project Flow
+
+## Step 1: Flash Raspberry Pi OS Lite
+
 Use Raspberry Pi Imager:
--OS: Raspberry Pi OS Lite (64-bit)
--Enable SSH in advanced settings (gear icon)
--Set hostname and Wi-Fi if desired
--Boot Pi → SSH in from your main computer
+- OS: Raspberry Pi OS Lite (64-bit)
+- Enable SSH in advanced settings (gear icon)
+- Set hostname and Wi-Fi if desired
+- Boot Pi → SSH in from your main computer
 
-# Step 2: Connect to PI & Update 
-From the main computer: 
+---
+
+## Step 2: Connect to Pi & Update
+
+From the main computer:
+
+```bash
 ssh pi@<your-pi-ip>
+````
 
 Update system:
-sudo apt update && sudo apt full - upgrade-y 
 
-# Step 3: Install required tools 
-sudo apt install nmap -y 
+```bash
+sudo apt update && sudo apt full-upgrade -y
+```
+
+---
+
+## Step 3: Install Required Tools
+
+```bash
+sudo apt install nmap -y
 sudo apt install arp-scan curl htop -y
+```
 
-# Step4: Create Logging Dire
-mkdir~/net-monitor-logs
+---
 
-# Step5: Create Main Scan Script 
+## Step 4: Create Logging Directory
+
+```bash
+mkdir ~/net-monitor-logs
+```
+
+---
+
+## Step 5: Create Main Scan Script
+
+```bash
 nano ~/net-monitor.sh
-Paste this code"
+```
+
+Paste this code:
+
+```bash
 #!/bin/bash
 
 LOG_DIR=~/net-monitor-logs
@@ -55,30 +87,84 @@ mkdir -p "$LOG_DIR"
 echo "Scanning network at $DATE..." >> "$LOG_FILE"
 nmap -sn "$NETWORK" | grep "Nmap scan report for" >> "$LOG_FILE"
 echo "Done. Log saved to $LOG_FILE"
+```
 
-Save: Ctrl + X, then Y, then Enter
-Make executable:chmod +x ~/net-monitor.sh
+Save:
 
-# Step 6: Test the Script 
+> Press `Ctrl + X`, then `Y`, then `Enter`
+
+Make executable:
+
+```bash
+chmod +x ~/net-monitor.sh
+```
+
+---
+
+## Step 6: Test the Script
+
+Run it:
+
+```bash
 ./net-monitor.sh
-Output:
+```
+
+Check the output:
+
+```bash
 cat ~/net-monitor-logs/scan_*.txt
+```
 
-# Step 7: Schedule with Cron 
+---
+
+## Step 7: Schedule with Cron
+
+Edit the crontab:
+
+```bash
 crontab -e
-Add:
-0 19 * * * /home/pi/net-monitor.sh
-(Schdedule runs daily at 7pm)
- #Step 8: (Optional) Add log cleanup 
- mkdir ~/network-monitor-pi/scripts
-nano ~/network-monitor-pi/scripts/cleanup-logs.sh
+```
 
-Paste:
+Add this line to schedule the script daily at 7:00 PM:
+
+```bash
+0 19 * * * /home/pi/net-monitor.sh
+```
+
+---
+
+## Step 8: (Optional) Add Log Cleanup
+
+Create the cleanup script:
+
+```bash
+mkdir ~/network-monitor-pi/scripts
+nano ~/network-monitor-pi/scripts/cleanup-logs.sh
+```
+
+Paste this:
+
+```bash
 #!/bin/bash
 find ~/net-monitor-logs -type f -mtime +7 -print -delete
+```
 
-Make executable: 
+Make it executable:
+
+```bash
 chmod +x ~/network-monitor-pi/scripts/cleanup-logs.sh
+```
 
-Add to corntab: 
+Schedule it to run every Sunday at 8:00 PM:
+
+```bash
+crontab -e
+```
+
+Add:
+
+```bash
 0 20 * * 0 /home/pi/network-monitor-pi/scripts/cleanup-logs.sh
+```
+
+
