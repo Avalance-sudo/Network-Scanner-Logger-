@@ -17,14 +17,10 @@ Useing a Raspbarry pi5 as a headless command line tool to scan home network,log 
 - SSH enabled (or keyboard/HDMI to start)
 - Wifi or Ethernet
 
-Absolutely! Here's your **GitHub-ready version** of that section with all code properly wrapped in **Markdown backticks** (\`\`\`), so it will display perfectly in a `README.md`:
 
----
+# Project Flow 
 
-````markdown
-# 📡 Project Flow
-
-## Step 1: Flash Raspberry Pi OS Lite
+# Step 1: Flash Raspberry Pi OS Lite
 
 Use Raspberry Pi Imager:
 - OS: Raspberry Pi OS Lite (64-bit)
